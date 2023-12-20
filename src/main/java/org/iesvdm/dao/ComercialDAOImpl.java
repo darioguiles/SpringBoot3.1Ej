@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ComercialDAOImpl implements ComercialDAO {
 
 	//JdbcTemplate se inyecta por el constructor de la clase automáticamente
-	//
+	//Ponemos Autowired
 	@Autowired //Le ponemos autowired para que Lombok nos ayude con la creación del jdbc
 	private JdbcTemplate jdbcTemplate;
 	

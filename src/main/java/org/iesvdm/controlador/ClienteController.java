@@ -38,9 +38,5 @@ public class ClienteController {
 		
 	}
 	
-	
-	
-	
-	
 
 }

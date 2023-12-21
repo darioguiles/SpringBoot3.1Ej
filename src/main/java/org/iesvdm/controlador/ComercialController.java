@@ -29,6 +29,6 @@ public class ComercialController {
         List<Comercial> listaComerciales =  comercialService.listAll();
         model.addAttribute("listaComerciales", listaComerciales);
 
-        return "clientes";
+        return "comerciales";
     }
 }

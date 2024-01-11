@@ -8,6 +8,9 @@ import org.iesvdm.modelo.Cliente;
 import org.iesvdm.modelo.Comercial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -28,7 +31,7 @@ public class ComercialDAOImpl implements ComercialDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	@Override
-	public void create(Comercial cliente) {
+	public void create(Comercial comerc) {
 
 		String sqlInsert = """
 							INSERT INTO comercial (nombre, apellido1, apellido2, comisión) 
@@ -40,14 +43,16 @@ public class ComercialDAOImpl implements ComercialDAO {
 		int rows = jdbcTemplate.update(connection -> {
 			PreparedStatement ps = connection.prepareStatement(sqlInsert, new String[] { "id" });
 			int idx = 1;
-			ps.setString(idx++, cliente.getNombre());
-			ps.setString(idx++, cliente.getApellido1());
-			ps.setString(idx++, cliente.getApellido2());
-			ps.setFloat(idx, cliente.getComision());
+			ps.setString(idx++, comerc.getNombre());
+			ps.setString(idx++, comerc.getApellido1());
+			ps.setString(idx++, comerc.getApellido2());
+			ps.setFloat(idx, comerc.getComision());
 			return ps;
 		},keyHolder);
 
-		cliente.setId(keyHolder.getKey().intValue());
+		comerc.setId(keyHolder.getKey().intValue());
+
+		//Podemos recuperar el id
 
 		log.info("Insertados {} registros.", rows);
 
@@ -124,4 +129,17 @@ public class ComercialDAOImpl implements ComercialDAO {
 
 	}
 
+	public void create_CON_RECARGA_SIMPLEJDBC(Comercial comercial) {
+			SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
+			simpleJdbcInsert
+					.withTableName("comercial")
+					.usingGeneratedKeyColumns();
+			SqlParameterSource params = new MapSqlParameterSource()
+					.addValue("nombre",comercial.getNombre())
+					.addValue("apellido1",comercial.getApellido1())
+					.addValue("apellido2",comercial.getApellido2())
+					.addValue("comisión",comercial.getComision());
+			Number number = simpleJdbcInsert.execute(params);
+			comercial.setId(number.intValue());
+	}
 }

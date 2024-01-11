@@ -7,6 +7,9 @@ import java.util.Optional;
 import org.iesvdm.modelo.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -23,7 +26,26 @@ public class ClienteDAOImpl implements ClienteDAO {
 	 //Plantilla jdbc inyectada automáticamente por el framework Spring, gracias a la anotación @Autowired.
 	 @Autowired
 	 private JdbcTemplate jdbcTemplate;
-	
+
+
+	public void create_CON_RECARGA_SIMPLEJDBC(Cliente cliente){
+		SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
+		simpleJdbcInsert
+				.withTableName("cliente")
+				.usingGeneratedKeyColumns();
+		SqlParameterSource params = new MapSqlParameterSource()
+				.addValue("nombre",cliente.getNombre())
+				.addValue("apellido1",cliente.getApellido1())
+				.addValue("apellido2",cliente.getApellido2())
+				.addValue("ciudad",cliente.getCiudad())
+				.addValue("categoria",cliente.getCategoria());
+		Number number = simpleJdbcInsert.execute(params);
+
+		cliente.setId(number.intValue());
+
+	}
+
+
 	/**
 	 * Inserta en base de datos el nuevo Cliente, actualizando el id en el bean Cliente.
 	 */

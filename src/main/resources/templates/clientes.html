@@ -25,7 +25,7 @@
 				
 				<div style="position: absolute; left: 39%; top : 39%;">
 					
-						<form action="/clientes/crear">
+						<form th:action="@{/clientes/crear}">
 							<input type="submit" th:value="#{bt.crear}">
 						</form>
 					</div>
@@ -62,7 +62,7 @@
 				<form th:action="@{/clientes/editar/}+${cliente.id} " style="display: inline;">
     				<input type="submit" value="Editar" />
 				</form>
-				<form th:action="@{/clientes/borrar/__${cliente.}_id_}" method="post" style="display: inline;">					
+				<form th:action="@{/clientes/borrar/}+${cliente.id}" method="post" style="display: inline;">
     				<input type="submit" value="Eliminar" />
 				</form>
 			</div>

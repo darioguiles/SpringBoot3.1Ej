@@ -74,15 +74,14 @@ public class ClienteController {
 		Cliente cliente = clienteService.one(id);
 		model.addAttribute("cliente", cliente);
 
-		return "cliente-fabricante";
+		return "editar-cliente";
 
 	}
 
-
 	@PostMapping("/clientes/editar/{id}")
-	public RedirectView submitEditar(@ModelAttribute("cliente") Cliente fabricante) {
+	public RedirectView submitEditar(@ModelAttribute("cliente") Cliente cliente) {
 
-		clienteService.replaceCliente(fabricante);
+		clienteService.replaceCliente(cliente);
 
 		return new RedirectView("/clientes");
 	}

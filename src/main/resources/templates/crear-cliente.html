@@ -16,7 +16,7 @@
 
 <div id="contenedora" style="float:none; margin: 0 auto;width: 900px;" >
 	<!-- INICIO FORMULARIO -->
-	<form th:action="@{/clientes/crear/}" th:object="${cliente}"
+	<form th:action="@{/clientes/crear}" th:object="${cliente}"
 		  th:method="post">
 		<div class="clearfix">
 			<div style="float: left; width: 50%">
@@ -64,7 +64,7 @@
 				Categoría
 			</div>
 			<div style="float: none;width: auto;overflow: hidden;">
-				<input th:field="*{categoria}" />
+				<input th:field="*{categoria}" type="number" min="0" />
 			</div>
 		</div>
 

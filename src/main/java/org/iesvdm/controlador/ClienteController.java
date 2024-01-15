@@ -37,6 +37,17 @@ public class ClienteController {
 		
 	}
 
+	@GetMapping("/clientes/{id}")
+	public String detalle(Model model, @PathVariable Integer id ) {
+
+		Cliente cliente = clienteService.one(id);
+		model.addAttribute("cliente", cliente);
+
+		return "detalle-cliente";
+
+	}
+
+
 	//Tenemos que implementar el Create, Update y Delete
 
 	@GetMapping("/clientes/crear")
@@ -57,4 +68,30 @@ public class ClienteController {
 		return new RedirectView("/clientes") ;
 	}
 
+	@GetMapping("/clientes/editar/{id}")
+	public String editar(Model model, @PathVariable Integer id) {
+
+		Cliente cliente = clienteService.one(id);
+		model.addAttribute("cliente", cliente);
+
+		return "cliente-fabricante";
+
+	}
+
+
+	@PostMapping("/clientes/editar/{id}")
+	public RedirectView submitEditar(@ModelAttribute("cliente") Cliente fabricante) {
+
+		clienteService.replaceCliente(fabricante);
+
+		return new RedirectView("/clientes");
+	}
+
+	@PostMapping("/clientes/borrar/{id}")
+	public RedirectView submitBorrar(@PathVariable Integer id) {
+
+		clienteService.deleteCliente(id);
+
+		return new RedirectView("/clientes");
+	}
 }

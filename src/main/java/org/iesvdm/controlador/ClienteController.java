@@ -6,9 +6,8 @@ import org.iesvdm.modelo.Cliente;
 import org.iesvdm.service.ClienteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 //Se puede fijar ruta base de las peticiones de este controlador.
@@ -37,6 +36,25 @@ public class ClienteController {
 		return "clientes";
 		
 	}
-	
+
+	//Tenemos que implementar el Create, Update y Delete
+
+	@GetMapping("/clientes/crear")
+	public String crear(Model model) {
+
+		Cliente cliente = new Cliente();
+		model.addAttribute("cliente", cliente);
+
+		return "crear-cliente";
+
+	}
+
+	@PostMapping("/clientes/crear")
+	public RedirectView submitCrear(@ModelAttribute Cliente cliente) {
+
+		clienteService.newCliente(cliente);
+
+		return new RedirectView("/clientes") ;
+	}
 
 }

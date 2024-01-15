@@ -32,61 +32,61 @@ public class ComercialController {
         return "comerciales";
     }
 
-    @GetMapping("/clientes/{id}")
+    @GetMapping("/comerciales/{id}")
     public String detalle(Model model, @PathVariable Integer id ) {
 
-        Cliente cliente = clienteService.one(id);
-        model.addAttribute("cliente", cliente);
+        Comercial comercial = comercialService.one(id);
+        model.addAttribute("comercial", comercial);
 
-        return "detalle-cliente";
+        return "detalle-comercial";
 
     }
 
 
     //Tenemos que implementar el Create, Update y Delete
 
-    @GetMapping("/clientes/crear")
+    @GetMapping("/comerciales/crear")
     public String crear(Model model) {
 
-        Cliente cliente = new Cliente();
-        model.addAttribute("cliente", cliente);
+        Comercial comercial = new Comercial();
+        model.addAttribute("comercial", comercial);
 
-        return "crear-cliente";
+        return "crear-comercial";
 
     }
 
-    @PostMapping("/clientes/crear")
-    public RedirectView submitCrear(@ModelAttribute Cliente cliente) {
+    @PostMapping("/comerciales/crear")
+    public RedirectView submitCrear(@ModelAttribute Comercial comercial) {
 
-        clienteService.newCliente(cliente);
+        comercialService.newComercial(comercial);
 
-        return new RedirectView("/clientes") ;
+        return new RedirectView("/comerciales") ;
     }
 
-    @GetMapping("/clientes/editar/{id}")
+    @GetMapping("/comercial/editar/{id}")
     public String editar(Model model, @PathVariable Integer id) {
 
-        Cliente cliente = clienteService.one(id);
-        model.addAttribute("cliente", cliente);
+        Comercial comercial = comercialService.one(id);
+        model.addAttribute("cliente", comercial);
 
-        return "editar-cliente";
+        return "editar-comercial";
 
     }
 
-    @PostMapping("/clientes/editar/{id}")
-    public RedirectView submitEditar(@ModelAttribute("cliente") Cliente cliente) {
+    @PostMapping("/comercial/editar/{id}")
+    public RedirectView submitEditar(@ModelAttribute("comercial") Comercial comercial) {
 
-        clienteService.replaceCliente(cliente);
+        comercialService.replaceComercial(comercial);
 
-        return new RedirectView("/clientes");
+        return new RedirectView("/comercial");
     }
 
-    @PostMapping("/clientes/borrar/{id}")
+    @PostMapping("/comercial/borrar/{id}")
     public RedirectView submitBorrar(@PathVariable Integer id) {
 
-        clienteService.deleteCliente(id);
+        comercialService.deleteComercial(id);
 
-        return new RedirectView("/clientes");
+        return new RedirectView("/comercial");
     }
 
 }

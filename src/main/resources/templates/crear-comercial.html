@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Crear Cliente</title>
+	<title>Crear Comercial</title>
 	<style>
 		.clearfix::after {
 			content: "";
@@ -16,11 +16,11 @@
 
 <div id="contenedora" style="float:none; margin: 0 auto;width: 900px;" >
 	<!-- INICIO FORMULARIO -->
-	<form th:action="@{/clientes/crear}" th:object="${cliente}"
+	<form th:action="@{/comerciales/crear}" th:object="${comercial}"
 		  th:method="post">
 		<div class="clearfix">
 			<div style="float: left; width: 50%">
-				<h1>Crear Cliente</h1>
+				<h1>Crear Comercial</h1>
 			</div>
 			<div style="float: none;width: auto;overflow: hidden;min-height: 80px;position: relative;">
 
@@ -55,16 +55,10 @@
 				<input th:field="*{apellido2}" />
 			</div>
 			<div style="float: left;width: 50%">
-				Ciudad
+				Comisión
 			</div>
 			<div style="float: none;width: auto;overflow: hidden;">
-				<input th:field="*{ciudad}" />
-			</div>
-			<div style="float: left;width: 50%">
-				Categoría
-			</div>
-			<div style="float: none;width: auto;overflow: hidden;">
-				<input th:field="*{categoria}" type="number" min="0" />
+				<input th:field="*{comision}" />
 			</div>
 		</div>
 

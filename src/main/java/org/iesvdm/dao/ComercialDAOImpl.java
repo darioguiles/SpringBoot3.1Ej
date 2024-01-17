@@ -123,6 +123,7 @@ public class ComercialDAOImpl implements ComercialDAO {
 	@Override
 	public void delete(long id) {
 
+		//jdbcTemplate.update("DELETE  from pedido where id_comercial = ?",id);
 		int rows = jdbcTemplate.update("DELETE FROM comercial WHERE id = ?", id);
 
 		log.info("Delete de Comercial con {} registros eliminados.", rows);

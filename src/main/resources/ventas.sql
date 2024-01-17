@@ -25,8 +25,12 @@ CREATE TABLE pedido (
                         fecha DATE,
                         id_cliente INT UNSIGNED NOT NULL,
                         id_comercial INT UNSIGNED NOT NULL,
-                        FOREIGN KEY (id_cliente) REFERENCES cliente(id),
-                        FOREIGN KEY (id_comercial) REFERENCES comercial(id)
+                        FOREIGN KEY (id_cliente)
+                            REFERENCES cliente (id)
+                            ON DELETE CASCADE,
+                        FOREIGN KEY (id_comercial)
+                            REFERENCES comercial(id)
+                            ON DELETE CASCADE
 );
 
 INSERT INTO cliente VALUES(1, 'Aarón', 'Rivero', 'Gómez', 'Almería', 100);

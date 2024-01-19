@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.iesvdm.dao.ComercialDAO;
+import org.iesvdm.dao.PedidoDAO;
 import org.iesvdm.modelo.Comercial;
+import org.iesvdm.modelo.Pedido;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +21,11 @@ public class ComercialService {
     public ComercialService(ComercialDAO comercialDAO) {
         this.comercialDAO = comercialDAO;
     }
+
+    @Autowired
+    private PedidoDAO pedidoDAO;
+
+
 
     public List<Comercial> listAll() {
 
@@ -49,4 +57,7 @@ public class ComercialService {
 
     }
 
+    public List<Pedido> listAllPedidos(Integer id) {
+        return pedidoDAO.getAllID(id);
+    }
 }

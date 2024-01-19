@@ -3,8 +3,8 @@ package org.iesvdm.controlador;
 
 import java.util.List;
 
-import org.iesvdm.modelo.Cliente;
 import org.iesvdm.modelo.Comercial;
+import org.iesvdm.modelo.Pedido;
 import org.iesvdm.service.ComercialService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +37,14 @@ public class ComercialController {
 
         Comercial comercial = comercialService.one(id);
         model.addAttribute("comercial", comercial);
+
+        List<Pedido> listaPedidos = comercialService.listAllPedidos(id);
+        model.addAttribute("listaPedidos", listaPedidos);
+
+        //añadimos los pedidos
+        //Pedido pedido = pedidoService.listaPedidos(id);
+        //model.addAttribute("pedido", pedido);
+
 
         return "detalle-comercial";
 

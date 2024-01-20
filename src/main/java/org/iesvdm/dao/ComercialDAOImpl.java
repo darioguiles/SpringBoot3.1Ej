@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
-import org.iesvdm.modelo.Cliente;
 import org.iesvdm.modelo.Comercial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -123,6 +122,7 @@ public class ComercialDAOImpl implements ComercialDAO {
 	@Override
 	public void delete(long id) {
 
+		//jdbcTemplate.update("DELETE  from pedido where id_comercial = ?",id);
 		int rows = jdbcTemplate.update("DELETE FROM comercial WHERE id = ?", id);
 
 		log.info("Delete de Comercial con {} registros eliminados.", rows);

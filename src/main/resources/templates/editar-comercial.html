@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Editar Cliente</title>
+	<title>Editar Comercial</title>
 	<style>
 		.clearfix::after {
 			content: "";
@@ -15,7 +15,7 @@
 <body>
 
 <div id="contenedora" style="float:none; margin: 0 auto;width: 900px;" >
-	<form  th:action="@{/comercial/editar/__${comercial.id}__}" th:object="${comercial}" method="post" >
+	<form  th:action="@{/comerciales/editar/__${comercial.id}__}" th:object="${comercial}" method="post" >
 		<div class="clearfix">
 			<div style="float: left; width: 50%">
 				<h1>Editar Comercial</h1>
@@ -68,7 +68,7 @@
 		</div>
 		<div style="margin-top: 6px;" class="clearfix">
 			<div style="float: left;width: 50%">
-				<label>Comision</label>
+				<label>Comisión</label>
 			</div>
 			<div style="float: none;width: auto;overflow: hidden;">
 				<input th:field="*{comision}"/>

@@ -72,15 +72,7 @@ public class ClienteDAOImpl implements ClienteDAO {
 		},keyHolder);
 		
 		cliente.setId(keyHolder.getKey().intValue());
-		
-		//Sin recuperación de id generado
-//		int rows = jdbcTemplate.update(sqlInsert,
-//							cliente.getNombre(),
-//							cliente.getApellido1(),
-//							cliente.getApellido2(),
-//							cliente.getCiudad(),
-//							cliente.getCategoria()
-//					);
+
 
 		log.info("Insertados {} registros.", rows);
 	}

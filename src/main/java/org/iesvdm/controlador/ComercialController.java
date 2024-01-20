@@ -3,8 +3,8 @@ package org.iesvdm.controlador;
 
 import java.util.List;
 
-import org.iesvdm.modelo.Cliente;
 import org.iesvdm.modelo.Comercial;
+import org.iesvdm.modelo.Pedido;
 import org.iesvdm.service.ComercialService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +38,14 @@ public class ComercialController {
         Comercial comercial = comercialService.one(id);
         model.addAttribute("comercial", comercial);
 
+        List<Pedido> listaPedidos = comercialService.listAllPedidos(id);
+        model.addAttribute("listaPedidos", listaPedidos);
+
+        //añadimos los pedidos
+        //Pedido pedido = pedidoService.listaPedidos(id);
+        //model.addAttribute("pedido", pedido);
+
+
         return "detalle-comercial";
 
     }
@@ -63,30 +71,30 @@ public class ComercialController {
         return new RedirectView("/comerciales") ;
     }
 
-    @GetMapping("/comercial/editar/{id}")
+    @GetMapping("/comerciales/editar/{id}")
     public String editar(Model model, @PathVariable Integer id) {
 
         Comercial comercial = comercialService.one(id);
-        model.addAttribute("cliente", comercial);
+        model.addAttribute("comercial", comercial);
 
         return "editar-comercial";
 
     }
 
-    @PostMapping("/comercial/editar/{id}")
+    @PostMapping("/comerciales/editar/{id}")
     public RedirectView submitEditar(@ModelAttribute("comercial") Comercial comercial) {
 
         comercialService.replaceComercial(comercial);
 
-        return new RedirectView("/comercial");
+        return new RedirectView("/comerciales");
     }
 
-    @PostMapping("/comercial/borrar/{id}")
+    @PostMapping("/comerciales/borrar/{id}")
     public RedirectView submitBorrar(@PathVariable Integer id) {
 
         comercialService.deleteComercial(id);
 
-        return new RedirectView("/comercial");
+        return new RedirectView("/comerciales");
     }
 
 }

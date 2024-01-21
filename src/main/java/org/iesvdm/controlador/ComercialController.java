@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.iesvdm.modelo.Comercial;
 import org.iesvdm.modelo.Pedido;
+import org.iesvdm.service.ClienteService;
 import org.iesvdm.service.ComercialService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +18,14 @@ public class ComercialController {
 
     private ComercialService comercialService;
 
-    //Se utiliza inyección automática por constructor del framework Spring.
-    //Por tanto, se puede omitir la anotación Autowired
-    //@Autowired
-    public ComercialController( ComercialService comercialService) {this.comercialService = comercialService;}
+    private ClienteService clienteService;
+
+
+    @Autowired
+    public ComercialController(ComercialService comercialService, ClienteService clienteService) {
+        this.comercialService = comercialService;
+        this.clienteService = clienteService;
+    }
 
     //@RequestMapping(value = "/clientes", method = RequestMethod.GET)
     //equivalente a la siguiente anotación
@@ -38,12 +44,12 @@ public class ComercialController {
         Comercial comercial = comercialService.one(id);
         model.addAttribute("comercial", comercial);
 
+        //Añadimos la lista de pedidos asociados al comercial
         List<Pedido> listaPedidos = comercialService.listAllPedidos(id);
         model.addAttribute("listaPedidos", listaPedidos);
 
-        //añadimos los pedidos
-        //Pedido pedido = pedidoService.listaPedidos(id);
-        //model.addAttribute("pedido", pedido);
+        //Añadimos el clienteService para sacar el nombre de los clientes
+        model.addAttribute("clienteService", clienteService);
 
 
         return "detalle-comercial";
@@ -96,5 +102,7 @@ public class ComercialController {
 
         return new RedirectView("/comerciales");
     }
+
+
 
 }

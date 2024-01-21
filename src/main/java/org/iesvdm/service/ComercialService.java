@@ -58,6 +58,6 @@ public class ComercialService {
     }
 
     public List<Pedido> listAllPedidos(Integer id) {
-        return pedidoDAO.getAllID(id);
+        return pedidoDAO.getAllIDComercial(id);
     }
 }

@@ -2,6 +2,7 @@ package org.iesvdm;
 
 import org.iesvdm.dao.ClienteDAOImpl;
 import org.iesvdm.dao.ComercialDAOImpl;
+import org.iesvdm.mapper.PedidoMapper;
 import org.iesvdm.modelo.Cliente;
 import org.iesvdm.modelo.Comercial;
 import org.junit.jupiter.api.Assertions;
@@ -21,6 +22,11 @@ class SpringBootWebMvcJdbcVentasApplicationTests {
 
 	@Autowired
 	ComercialDAOImpl comercialDAOImpl;
+
+	@Autowired
+	private PedidoMapper pedidoMapper;
+
+
 	@Test
 	void testIDIncremental_ClienteSimpleJDBC() {
 
@@ -48,5 +54,9 @@ class SpringBootWebMvcJdbcVentasApplicationTests {
 		System.out.println("ID Comercial AUTO_INCREMENT: " + comercial.getId()); //TEST PASA 1
 	}
 
-	//Todo -> Hacer el resto de test para comprobar y reafirmar la seguridad de la función.
+	@Test
+	void testFuncionamientoPedidoDTO() {
+
+
+	}
 }

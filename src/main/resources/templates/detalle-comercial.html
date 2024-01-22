@@ -108,7 +108,7 @@
 				<div style="float: left;width: 14%" th:text="${pedido.id_comercial}">IDComercial</div>
 				<div style="float: left;width: 14%" th:text="${pedido.id_cliente}">IDCliente</div>
 
-				<div style="float: left;width: 14%;  " > <button style="background: aquamarine">
+				<div style="float: left;width: 14%;  " > <button >
 				<a style="text-decoration: none;font-weight: bold;"
 				th:href="@{/clientes/__${pedido.id_cliente}__}"
 				th:text="${clienteService.getNombreCliente(pedido.id_cliente)}" >Ver Cliente</a>

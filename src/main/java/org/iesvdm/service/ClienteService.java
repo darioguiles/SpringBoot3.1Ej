@@ -51,4 +51,9 @@ public class ClienteService {
 		clienteDAO.delete(id);
 
 	}
+
+	public String getNombreCliente(int clientId) {
+		Cliente cliente = clienteDAO.find(clientId).orElse(null);
+		return (cliente != null) ? cliente.getNombre() : "Cliente no encontrado";
+	}
 }

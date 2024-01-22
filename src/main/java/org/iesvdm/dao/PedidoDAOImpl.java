@@ -71,19 +71,55 @@ public class PedidoDAOImpl implements PedidoDAO {
         return listPedido;
     }
 
-    public List<Pedido> getAllID(int id) {
-
+    @Override
+    public List<Pedido> getAllIDComercial(int idComercial) {
+        //Actualizarse porque estoy usando algo deprecated -> ver diferentes aplicaciones o soluciones
+        /*
         List<Pedido> listPedido = jdbcTemplate.queryForList(
-                "SELECT * FROM pedido where id = ?"
-                , (rs, rowNum) -> new Pedido(rs.getInt("id"),
+        "SELECT * FROM pedido WHERE id_comercial = ?",
+                new Object[]{idComercial},
+                (rs, rowNum) -> new Pedido(
+                        rs.getInt("id"),
                         rs.getDouble("total"),
                         rs.getDate("fecha"),
                         rs.getInt("id_cliente"),
-                        rs.getInt("id_comercial"))
-                , id
+                        rs.getInt("id_comercial")
+                )
         );
 
-        log.info("Devueltos {} registros.", listPedido.size());
+         */
+        List<Pedido> listPedido = jdbcTemplate.query(
+                "SELECT * FROM pedido WHERE id_comercial = ?",
+                new Object[]{idComercial},
+                (rs, rowNum) -> new Pedido(
+                        rs.getInt("id"),
+                        rs.getDouble("total"),
+                        rs.getDate("fecha"),
+                        rs.getInt("id_cliente"),
+                        rs.getInt("id_comercial")
+                )
+        );
+
+        log.info("Devueltos {} registros para id_comercial = {}.", listPedido.size(), idComercial);
+
+        return listPedido;
+    }
+
+    @Override
+    public List<Pedido> getAllIDCliente(int idCliente) {
+        List<Pedido> listPedido = jdbcTemplate.query(
+                "SELECT * FROM pedido WHERE id_cliente = ?",
+                new Object[]{idCliente},
+                (rs, rowNum) -> new Pedido(
+                        rs.getInt("id"),
+                        rs.getDouble("total"),
+                        rs.getDate("fecha"),
+                        rs.getInt("id_cliente"),
+                        rs.getInt("id_comercial")
+                )
+        );
+
+        log.info("Devueltos {} registros para id_comercial = {}.", listPedido.size(), idCliente);
 
         return listPedido;
     }

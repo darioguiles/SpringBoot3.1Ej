@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Clientes</title>
+<title th:text="#{et.clientes}">Clientes</title>
 <style>
 .clearfix::after {
 	content: "";
@@ -26,7 +26,7 @@
 				<div style="position: absolute; left: 39%; top : 39%;">
 					
 						<form th:action="@{/clientes/crear}">
-							<input type="submit" th:value="#{bt.crear}">
+							<input type="submit" th:value="#{action.c}">
 						</form>
 					</div>
 				
@@ -37,12 +37,12 @@
 		</div>
 		<div class="clearfix">
 			<div style="float: left;width: 14%">Id</div>
-			<div style="float: left;width: 14%">Nombre</div>
-			<div style="float: left;width: 14%">Apellido1</div>
-			<div style="float: left;width: 14%">Apellido2</div>
-			<div style="float: left;width: 14%">Ciudad</div>
-			<div style="float: left;width: 14%">Categoría</div>
-			<div style="float: none;width: auto;overflow: hidden;">Acción</div>
+			<div style="float: left;width: 14%" th:text="#{cl.campo1}">Nombre</div>
+			<div style="float: left;width: 14%" th:text="#{cl.campo2}">Apellido1</div>
+			<div style="float: left;width: 14%"th:text="#{cl.campo3}">Apellido2</div>
+			<div style="float: left;width: 14%"th:text="#{cl.campo4}">Ciudad</div>
+			<div style="float: left;width: 14%"th:text="#{cl.campo5}">Categoría</div>
+			<div style="float: none;width: auto;overflow: hidden;"th:text="#{formA}">Acción</div>
 		</div>
 		<div class="clearfix">
 			<hr/>
@@ -57,13 +57,13 @@
 			<div style="float: left;width: 14%" th:text="${cliente.categoria}">categoría</div>
 			<div style="float: none;width: auto;overflow: hidden;">
 				<form th:action="@{/clientes/__${cliente.id}__}" style="display: inline;">
-    				<input type="submit" value="Ver Detalle" />
+    				<input th:value="#{action.r}" type="submit"  />
 				</form>
 				<form th:action="@{/clientes/editar/}+${cliente.id} " style="display: inline;">
-    				<input type="submit" value="Editar" />
+    				<input th:value="#{action.u}" type="submit"  />
 				</form>
 				<form th:action="@{/clientes/borrar/}+${cliente.id}" method="post" style="display: inline;">
-    				<input type="submit" value="Eliminar" />
+    				<input th:value="#{action.d}" type="submit"  />
 				</form>
 			</div>
 		</div>

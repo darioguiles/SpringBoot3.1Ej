@@ -58,6 +58,23 @@ public class ComercialService {
     }
 
     public List<Pedido> listAllPedidos(Integer id) {
-        return pedidoDAO.getAllID(id);
+        return pedidoDAO.getAllIDComercial(id);
     }
+
+    /* TODO Vamos a plantear la 3.6... Necesitamos hacer lo siguiente:
+    * 1. Añade las estadísticas de total y media de pedidos del comercial en su detalle.
+    * Utiliza un DTO para transferir a la vista las estadísticas de inteligencia de pedidos
+    * (Vamos a hacer lógica real -> Definición de DTO y uso, como lo vamos a crear y el stream que haga esta lógica funcionará así:
+    * primero sacamos el total de dinero por pedido pongamos 2000€ * comisión, luego la media seria dividirlo por el nº de pedidos.
+    * El objetivo, ver cuanto se ha de pagar a un Comercial por los Pedidos que ha logrado y ver cual sería su "media".
+    * )
+    *
+    * 2. Posteriormente, resalta con verde las líneas de pedido máximo y con amarillo las líneas de pedido mínimo. Pon leyendas indicando qué significa cada color.
+    * (Creamos cajitas con los colores y la leyenda )
+    *
+    * 3. Muestra un listado adicional con los clientes ordenados por cuantía de pedido de mayor a menor. El listado iría a continuación del listado de pedidos
+    * (Stream -> sacamos todos los pedidos a partir de un cliente (1-*) (Se podria recorrer al reves? todos los pedidos de 1 cliente vs el cliente de varios pedidos¿?)
+    * Estamos ante una estructura de linea continua puesto que un Pedido no puede existir sin un Comercial y un Cliente)
+    * */
+
 }

@@ -1,0 +1,89 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="#{et.rClientes}">Detalle Cliente</title>
+<style>
+.clearfix::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+</style>
+</head>
+<body>
+
+<div id="contenedora" style="float:none; margin: 0 auto;width: 900px;" >
+		<div class="clearfix">
+			<div style="float: left; width: 50%">
+				<h1 th:text="#{et.rClientes}">Detalle Clientes</h1>
+			</div>
+			<div style="float: none;width: auto;overflow: hidden;min-height: 80px;position: relative;">
+				
+				<div style="position: absolute; left: 39%; top : 39%;">
+					
+						<form th:action="@{/clientes}" >
+							<input th:value="#{redirectV}" type="submit" value="Volver" />
+						</form>
+					</div>
+				
+			</div>
+		</div>
+		
+		<div class="clearfix">
+			<hr/>
+		</div>
+
+		<div style="margin-top: 6px;" class="clearfix">
+			<div style="float: left;width: 50%">
+				<label>ID</label>
+			</div>
+			<div style="float: none;width: auto;overflow: hidden;">
+				<input th:value="${cliente.id}" value="Id" readonly="readonly"/>
+			</div> 
+		</div>
+		<div style="margin-top: 6px;" class="clearfix">
+			<div style="float: left;width: 50%">
+				<label th:text="#{cl.campo1}">Nombre</label>
+			</div>
+			<div style="float: none;width: auto;overflow: hidden;">
+				<input th:value="${cliente.nombre}" value="Nombre" readonly="readonly"/>
+			</div> 
+		</div>
+		<div style="margin-top: 6px;" class="clearfix">
+			<div style="float: left;width: 50%">
+				<label th:text="#{cl.campo2}">Apellido1</label>
+			</div>
+			<div style="float: none;width: auto;overflow: hidden;">
+				<input th:value="${cliente.apellido1}" value="Apellido1" readonly="readonly"/>
+			</div>
+		</div>
+		<div style="margin-top: 6px;" class="clearfix">
+			<div style="float: left;width: 50%">
+				<label th:text="#{cl.campo3}">Apellido2</label>
+			</div>
+			<div style="float: none;width: auto;overflow: hidden;">
+				<input th:value="${cliente.apellido2}" value="Apellido2" readonly="readonly"/>
+			</div>
+		</div>
+		<div style="margin-top: 6px;" class="clearfix">
+			<div style="float: left;width: 50%">
+				<label th:text="#{cl.campo4}">Ciudad</label>
+			</div>
+			<div style="float: none;width: auto;overflow: hidden;">
+				<input th:value="${cliente.ciudad}" value="Ciudad" readonly="readonly"/>
+			</div>
+		</div><div style="margin-top: 6px;" class="clearfix">
+		<div style="float: left;width: 50%">
+			<label th:text="#{cl.campo5}">Categoria</label>
+		</div>
+		<div style="float: none;width: auto;overflow: hidden;">
+			<input th:value="${cliente.categoria}" value="Categoria" readonly="readonly"/>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>

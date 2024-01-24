@@ -1,6 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{fragments/general.html :: headfiles}">
 	<meta charset="UTF-8">
 	<title th:text="#{et.rComerciales}">Detalle Comerciales</title>
 	<style>
@@ -24,7 +24,7 @@
 			<div style="position: absolute; left: 39%; top : 39%;">
 
 				<form th:action="@{/comerciales}" >
-					<input th:value="#{redirectV}" type="submit" value="Volver" />
+					<input class="btn btn-primary" th:value="#{redirectV}" type="submit" value="Volver" />
 				</form>
 			</div>
 
@@ -106,14 +106,14 @@
 				<div style="float: left;width: 14%" th:text="${pedido.id}">ID</div>
 				<div style="float: left;width: 14%" th:text="${pedido.total}">Total</div>
 				<div style="float: left;width: 14%" th:text="${pedido.fecha}">Fecha</div>
-				<div style="float: left;width: 14%" th:text="${pedido.comercial.getId()}">IDComercial</div>
-				<div style="float: left;width: 14%" th:text="${pedido.cliente.getId()}">IDCliente</div>
+				<div style="float: left;width: 14%" th:text="${pedido.id_comercial}">IDComercial</div>
+				<div style="float: left;width: 14%" th:text="${pedido.id_cliente}">IDCliente</div>
 
-				<div style="float: left;width: 14%;  " > <button >
-				<a style="text-decoration: none;font-weight: bold;"
-				th:href="@{/clientes/__${pedido.cliente.getId()}__}"
-				th:text="${clienteService.getNombreCliente(pedido.cliente.getId())}" >Ver Cliente</a>
-				</button></div>
+				<div style="float: left;width: 14%;  " >
+				<a class="btn btn-primary" style="text-decoration: none;font-weight: bold;"
+				th:href="@{/clientes/__${pedido.id_cliente}__}"
+				th:text="${clienteService.getNombreCliente(pedido.id_cliente)}" >Ver Cliente</a>
+				</div>
 
 			</div>
 

@@ -1,8 +1,9 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{fragments/general.html :: headfiles}">
     <meta charset="UTF-8">
     <title th:text="#{et.comerciales}">Comerciales</title>
+
     <style>
         .clearfix::after {
             content: "";
@@ -25,7 +26,7 @@
             <div style="position: absolute; left: 39%; top : 39%;">
 
                 <form action="/comerciales/crear">
-                    <input th:value="#{action.c}" type="submit">
+                    <input class="btn btn-primary" th:value="#{action.c}" type="submit">
                 </form>
             </div>
 
@@ -54,13 +55,13 @@
         <div style="float: left;width: 14%" th:text="${comercial.comision}">comision</div>
         <div style="float: none;width: auto;overflow: hidden;">
             <form th:action="@{/comerciales/__${comercial.id}__}" style="display: inline;">
-                <input th:value="#{action.r}" type="submit"  />
+                <input class="btn btn-primary" th:value="#{action.r}" type="submit"  />
             </form>
             <form th:action="@{/comerciales/editar/}+${comercial.id} " style="display: inline;">
-                <input th:value="#{action.u}" type="submit"  />
+                <input class="btn btn-warning" th:value="#{action.u}" type="submit"  />
             </form>
             <form th:action="@{/comerciales/borrar/}+${comercial.id}" method="post" style="display: inline;">
-                <input th:value="#{action.d}" type="submit"  />
+                <input class="btn btn-danger" th:value="#{action.d}" type="submit"  />
             </form>
         </div>
     </div>

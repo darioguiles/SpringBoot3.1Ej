@@ -1,5 +1,6 @@
 package org.iesvdm.dao;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
@@ -45,7 +46,7 @@ public class ComercialDAOImpl implements ComercialDAO {
 			ps.setString(idx++, comerc.getNombre());
 			ps.setString(idx++, comerc.getApellido1());
 			ps.setString(idx++, comerc.getApellido2());
-			ps.setFloat(idx, comerc.getComision());
+			ps.setFloat(idx,  comerc.getComision().floatValue());
 			return ps;
 		},keyHolder);
 
@@ -59,20 +60,10 @@ public class ComercialDAOImpl implements ComercialDAO {
 
 	@Override
 	public List<Comercial> getAll() {
-		
-		List<Comercial> listComercial = jdbcTemplate.query(
-                "SELECT * FROM comercial",
-                (rs, rowNum) -> new Comercial(rs.getInt("id"), 
-                							  rs.getString("nombre"), 
-                							  rs.getString("apellido1"),
-                							  rs.getString("apellido2"), 
-                							  rs.getFloat("comisión"))
-                						 	
-        );
-		
-		log.info("Devueltos {} registros.", listComercial.size());
-		
-        return listComercial;
+
+		return this.jdbcTemplate.query("""
+                select * from comercial
+                """, (rs, rowNum) -> UtilDAO.newComercial(rs));
 	}
 
 	@Override
@@ -85,7 +76,7 @@ public class ComercialDAOImpl implements ComercialDAO {
 								rs.getString("nombre"),
 								rs.getString("apellido1"),
 								rs.getString("apellido2"),
-								rs.getFloat("comisión"))
+								rs.getBigDecimal("comisión"))
 						, id
 				);
 

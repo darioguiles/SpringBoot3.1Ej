@@ -57,10 +57,11 @@ public class ComercialService {
 
     }
 
+    /*
     public List<Pedido> listAllPedidos(Integer id) {
         return pedidoDAO.getAllIDComercial(id);
     }
-
+*/
     /* TODO Vamos a plantear la 3.6... Necesitamos hacer lo siguiente:
     * 1. Añade las estadísticas de total y media de pedidos del comercial en su detalle.
     * Utiliza un DTO para transferir a la vista las estadísticas de inteligencia de pedidos

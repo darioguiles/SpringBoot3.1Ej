@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.math.BigDecimal;
+
 @SpringBootTest
 class SpringBootWebMvcJdbcVentasApplicationTests {
 
@@ -44,11 +46,13 @@ class SpringBootWebMvcJdbcVentasApplicationTests {
 	@Test
 	void testIDIncremental_ComercialSimpleJDBC() {
 
+		BigDecimal f = new BigDecimal(20.4f);
+
 		Comercial comercial = new Comercial(0,
 				"Javier"
 				, "Garcia"
 				, "Moreno"
-				,20.4f);
+				,f);
 		this.comercialDAOImpl.create_CON_RECARGA_SIMPLEJDBC(comercial);
 		Assertions.assertTrue(comercial.getId()>0);
 		System.out.println("ID Comercial AUTO_INCREMENT: " + comercial.getId()); //TEST PASA 1

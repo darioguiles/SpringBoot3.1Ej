@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.iesvdm.dao.ComercialDAO;
 import org.iesvdm.dao.PedidoDAO;
+import org.iesvdm.dao.PedidoDAOImpl;
 import org.iesvdm.modelo.Comercial;
 import org.iesvdm.modelo.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class ComercialService {
     }
 
     @Autowired
-    private PedidoDAO pedidoDAO;
+    private PedidoDAOImpl pedidoDAO;
 
 
 
@@ -57,11 +58,10 @@ public class ComercialService {
 
     }
 
-    /*
     public List<Pedido> listAllPedidos(Integer id) {
-        return pedidoDAO.getAllIDComercial(id);
+        return pedidoDAO.getAllComercialesByID(id);
     }
-*/
+
     /* TODO Vamos a plantear la 3.6... Necesitamos hacer lo siguiente:
     * 1. Añade las estadísticas de total y media de pedidos del comercial en su detalle.
     * Utiliza un DTO para transferir a la vista las estadísticas de inteligencia de pedidos

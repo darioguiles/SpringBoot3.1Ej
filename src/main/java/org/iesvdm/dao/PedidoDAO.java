@@ -10,17 +10,15 @@ import java.util.Optional;
 
 public interface PedidoDAO<T extends Pedido> extends RepositoryBase<T> {
 
-    /*
 
-    public List<Pedido> getAllIDComercial(int id);
-
-    public List<Pedido> getAllIDCliente(int id);
-*/
 
     public Optional<Cliente> findClienteBy(int pedidoId);
 
     public Optional<Comercial> findComercialBy(int pedidoId);
 
+    public List<Pedido> getAllComercialesByID(int id);
+
+    public List<Pedido> getAllClienteByID(int id);
 
     public List<Cliente> getAllClientesByIdPedido(int pedidoId);
 

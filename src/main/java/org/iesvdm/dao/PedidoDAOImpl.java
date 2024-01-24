@@ -134,6 +134,59 @@ public class PedidoDAOImpl implements PedidoDAO<Pedido> {
     }
 
 
+    @Override
+    public List<Pedido> getAllComercialesByID(int idComercial) {
+        //Actualizarse porque estoy usando algo deprecated -> ver diferentes aplicaciones o soluciones
+/*
+Para esto se debe tener en cuenta que es Sin Pedido y Sin
+        List<Pedido> listPedido = jdbcTemplate.query(
+                "SELECT * FROM pedido WHERE id_comercial = ?",
+                new Object[]{idComercial},
+                (rs, rowNum) -> new Pedido(
+                        rs.getInt("id"),
+                        rs.getDouble("total"),
+                        rs.getDate("fecha"),
+                        rs.getInt("id_cliente"),
+                        rs.getInt("id_comercial") ) ); */
+            //Hecho con lo del profe
+
+        List<Pedido> listPedido = this.jdbcTemplate.query("""
+                SELECT * FROM pedido P LEFT JOIN comercial CO ON P.id_comercial = CO.id
+                        WHERE CO.id = ?
+
+                """, (rs, rowNum) -> UtilDAO.newPedido(rs), idComercial);
+
+
+        log.info("Devueltos {} registros para id_comercial = {}.", listPedido.size(), idComercial);
+
+        return listPedido;
+    }
+
+
+    @Override
+    public List<Pedido> getAllClienteByID(int idCliente) {
+        /*
+        List<Pedido> listPedido = jdbcTemplate.query(
+                "SELECT * FROM pedido WHERE id_cliente = ?",
+                new Object[]{idCliente},
+                (rs, rowNum) -> new Pedido(
+                        rs.getInt("id"),
+                        rs.getDouble("total"),
+                        rs.getDate("fecha"),
+                        rs.getInt("id_cliente"),
+                        rs.getInt("id_comercial")
+                )
+        );*/
+
+        List<Pedido> listPedido = this.jdbcTemplate.query("""
+                SELECT * FROM pedido P LEFT JOIN cliente C ON P.id_comercial = C.id
+                        WHERE C.id = ?
+                """, (rs, rowNum) -> UtilDAO.newPedido(rs), idCliente);
+
+        log.info("Devueltos {} registros para id_cliente = {}.", listPedido.size(), idCliente);
+
+        return listPedido;
+    }
 
 
 
@@ -204,46 +257,7 @@ public class PedidoDAOImpl implements PedidoDAO<Pedido> {
 
 
 
-    @Override
-    public List<Pedido> getAllIDComercial(int idComercial) {
-        //Actualizarse porque estoy usando algo deprecated -> ver diferentes aplicaciones o soluciones
 
-        List<Pedido> listPedido = jdbcTemplate.query(
-                "SELECT * FROM pedido WHERE id_comercial = ?",
-                new Object[]{idComercial},
-                (rs, rowNum) -> new Pedido(
-                        rs.getInt("id"),
-                        rs.getDouble("total"),
-                        rs.getDate("fecha"),
-                        rs.getInt("id_cliente"),
-                        rs.getInt("id_comercial")
-                )
-        );
-
-        log.info("Devueltos {} registros para id_comercial = {}.", listPedido.size(), idComercial);
-
-        return listPedido;
-    }
-
-
-    @Override
-    public List<Pedido> getAllIDCliente(int idCliente) {
-        List<Pedido> listPedido = jdbcTemplate.query(
-                "SELECT * FROM pedido WHERE id_cliente = ?",
-                new Object[]{idCliente},
-                (rs, rowNum) -> new Pedido(
-                        rs.getInt("id"),
-                        rs.getDouble("total"),
-                        rs.getDate("fecha"),
-                        rs.getInt("id_cliente"),
-                        rs.getInt("id_comercial")
-                )
-        );
-
-        log.info("Devueltos {} registros para id_cliente = {}.", listPedido.size(), idCliente);
-
-        return listPedido;
-    }
 
 
     @Override

@@ -100,31 +100,25 @@
 
 
 
+	<!--Lista Antigua hecha con el PedidoDAO antiguo     -->
+			<div  th:each="pedido : ${listaPedidos}" style="margin-top: 6px;" class="clearfix">
+
+				<div style="float: left;width: 14%" th:text="${pedido.id}">ID</div>
+				<div style="float: left;width: 14%" th:text="${pedido.total}">Total</div>
+				<div style="float: left;width: 14%" th:text="${pedido.fecha}">Fecha</div>
+				<div style="float: left;width: 14%" th:text="${pedido.comercial.getId()}">IDComercial</div>
+				<div style="float: left;width: 14%" th:text="${pedido.cliente.getId()}">IDCliente</div>
+
+				<div style="float: left;width: 14%;  " > <button >
+				<a style="text-decoration: none;font-weight: bold;"
+				th:href="@{/clientes/__${pedido.cliente.getId()}__}"
+				th:text="${clienteService.getNombreCliente(pedido.cliente.getId())}" >Ver Cliente</a>
+				</button></div>
+
+			</div>
 
 
 
-
-
-
-	<!--	Lista Antigua hecha con el PedidoDAO antiguo
-                <div  th:each="pedido : ${listaPedidos}" style="margin-top: 6px;" class="clearfix">
-
-                    <div style="float: left;width: 14%" th:text="${pedido.id}">ID</div>
-                    <div style="float: left;width: 14%" th:text="${pedido.total}">Total</div>
-                    <div style="float: left;width: 14%" th:text="${pedido.fecha}">Fecha</div>
-                    <div style="float: left;width: 14%" th:text="${pedido.id_comercial}">IDComercial</div>
-                    <div style="float: left;width: 14%" th:text="${pedido.id_cliente}">IDCliente</div>
-
-                    <div style="float: left;width: 14%;  " > <button >
-                    <a style="text-decoration: none;font-weight: bold;"
-                    th:href="@{/clientes/__${pedido.id_cliente}__}"
-                    th:text="${clienteService.getNombreCliente(pedido.id_cliente)}" >Ver Cliente</a>
-                    </button></div>
-
-                </div>
-
-                -->
-        <!-- Cambios y mejoras, 1ºESTILO, 2º no se pide pero ordenar la lista, lo mejor seria por cliente/fecha   -->
 
 </div>
 

@@ -19,7 +19,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.util.List;
 @Controller
 public class PedidoController {
-/*
+
     @Autowired
     private PedidoService pedidoService;
 
@@ -32,7 +32,7 @@ public class PedidoController {
                          @RequestParam(required = false) Integer editPedidoID,
                          @RequestParam(required = false) Integer borradoPedidoID) {
 
-        List<Pedido> listAllPed =  pedidoService.listAll();
+        List<Pedido> listAllPed = pedidoService.listAll();
         model.addAttribute("listaPedidos", listAllPed);
 
         if (newPedidoID != null) model.addAttribute("newPedidoID", newPedidoID);
@@ -44,7 +44,7 @@ public class PedidoController {
     }
 
     @GetMapping("/pedidos/{id}")
-    public String detalle(Model model, @PathVariable Integer id ) {
+    public String detalle(Model model, @PathVariable Integer id) {
 
         Pedido pedido = pedidoService.one(id);
         model.addAttribute("pedido", pedido);
@@ -88,7 +88,7 @@ public class PedidoController {
 
         pedidoService.create(pedido);
 
-        return "redirect:/pedidos?newPedidoID="+pedido.getId();
+        return "redirect:/pedidos?newPedidoID=" + pedido.getId();
 
     }
 
@@ -127,7 +127,7 @@ public class PedidoController {
         Pedido pedido = this.pedidoMapper.pedidoFormDTOAPedido(pedidoFormDTO);
         pedidoService.replace(pedido);
 
-        return "redirect:/pedidos?editPedidoID="+pedido.getId();
+        return "redirect:/pedidos?editPedidoID=" + pedido.getId();
     }
 
     @PostMapping("/pedidos/borrar/{id}")
@@ -135,5 +135,7 @@ public class PedidoController {
 
         pedidoService.delete(id);
 
-        return new RedirectView("/pedidos?borradoPedidoID="+id);*/
+        return new RedirectView("/pedidos?borradoPedidoID=" + id);
     }
+
+}

@@ -45,12 +45,15 @@ public class ComercialController {
         model.addAttribute("comercial", comercial);
 
         //Añadimos la lista de pedidos asociados al comercial
-        List<Pedido> listaPedidos = comercialService.listAllPedidos(id);
+
+       List<Pedido> listaPedidos = comercialService.listAllPedidos(id);
         model.addAttribute("listaPedidos", listaPedidos);
 
         //Añadimos el clienteService para sacar el nombre de los clientes
         model.addAttribute("clienteService", clienteService);
-
+/*
+       Aquí hay algo que falla
+        */
 
         return "detalle-comercial";
 

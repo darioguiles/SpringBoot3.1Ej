@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
+import org.iesvdm.modelo.Cliente;
 import org.iesvdm.modelo.Comercial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -61,9 +62,19 @@ public class ComercialDAOImpl implements ComercialDAO {
 	@Override
 	public List<Comercial> getAll() {
 
-		return this.jdbcTemplate.query("""
-                select * from comercial
-                """, (rs, rowNum) -> UtilDAO.newComercial(rs));
+		List<Comercial> listFab = jdbcTemplate.query(
+				"SELECT * FROM comercial",
+				(rs, rowNum) -> new Comercial(rs.getInt("id"),
+						rs.getString("nombre"),
+						rs.getString("apellido1"),
+						rs.getString("apellido2"),
+						rs.getBigDecimal("comisión")
+				)
+		);
+
+		log.info("Devueltos {} registros.", listFab.size());
+
+		return listFab;
 	}
 
 	@Override

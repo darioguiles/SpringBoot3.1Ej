@@ -8,21 +8,20 @@ import org.iesvdm.modelo.Pedido;
 import java.util.List;
 import java.util.Optional;
 
-public interface PedidoDAO<T extends Pedido> extends RepositoryBase<T> {
+public interface PedidoDAO {
 
+    public List<Pedido> getAll();
 
+    public void update(Pedido pedido);
+    public void create(Pedido pedido);
 
-    public Optional<Cliente> findClienteBy(int pedidoId);
+    public Optional<Pedido> find(int id);
 
-    public Optional<Comercial> findComercialBy(int pedidoId);
+    public void delete(long id);
+
+    public List<Pedido> getAllClientesByID(int id);
 
     public List<Pedido> getAllComercialesByID(int id);
-
-    public List<Pedido> getAllClienteByID(int id);
-
-    public List<Cliente> getAllClientesByIdPedido(int pedidoId);
-
-    public void updateSinComercial(T t);
 
 
 }

@@ -26,13 +26,8 @@ public class Pedido {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
-    @Valid
-    private Cliente cliente;
-    @Valid
-    private Comercial comercial;
 
-    /*
-    * private int id_cliente;
-    * private int id_comercial;
-    * */
+     private int id_cliente;
+     private int id_comercial;
+
 }

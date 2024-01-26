@@ -1,8 +1,9 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{fragments/general.html :: headfiles}">
 <meta charset="UTF-8">
-<title th:text="#{et.rClientes}">Detalle Cliente</title>
+
+	<title th:text="#{et.rClientes}">Detalle Cliente</title>
 <style>
 .clearfix::after {
 	content: "";
@@ -11,6 +12,8 @@
 }
 
 </style>
+
+
 </head>
 <body>
 
@@ -22,9 +25,9 @@
 			<div style="float: none;width: auto;overflow: hidden;min-height: 80px;position: relative;">
 				
 				<div style="position: absolute; left: 39%; top : 39%;">
-					
+
 						<form th:action="@{/clientes}" >
-							<input th:value="#{redirectV}" type="submit" value="Volver" />
+							<input class="btn btn-primary"  th:value="#{redirectV}" type="submit" value="Volver" />
 						</form>
 					</div>
 				

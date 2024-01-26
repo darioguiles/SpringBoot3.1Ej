@@ -2,6 +2,7 @@ package org.iesvdm.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.iesvdm.modelo.Cliente;
 import org.iesvdm.modelo.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,7 +25,7 @@ public class PedidoDAOImpl implements PedidoDAO {
 
 
     @Override
-    public List<Pedido> getAllComercialesByID(int idComercial) {
+    public List<Pedido> getAllPComercialesByID(int idComercial) {
         //Actualizarse porque estoy usando algo deprecated -> ver diferentes aplicaciones o soluciones
         List<Pedido> listPedido = jdbcTemplate.query(
                 "SELECT * FROM pedido WHERE id_comercial = ?",
@@ -41,9 +42,16 @@ public class PedidoDAOImpl implements PedidoDAO {
         return listPedido;
     }
 
+    @Override
+    public void updateSinComercial(Pedido p) {
+        this.jdbcTemplate.update("""
+                      update pedido set total = ?, fecha = ?, id_cliente = ?, id_comercial = ? where id = ?
+                    """, p.getTotal(), p.getFecha(), p.getId_cliente(), null, p.getId_comercial());
+    }
+
 
     @Override
-    public List<Pedido> getAllClientesByID(int idCliente) {
+    public List<Pedido> getAllPClientesByID(int idCliente) {
 
         List<Pedido> listPedido = jdbcTemplate.query(
                 "SELECT * FROM pedido WHERE id_cliente = ?",
@@ -172,7 +180,16 @@ public class PedidoDAOImpl implements PedidoDAO {
 
     }
 
+    @Override
+    public List<Cliente> getAllClientesByIdPedido(int id) {
+        List<Cliente> clienteList = this.jdbcTemplate.query("""
+                select C.* from pedido P join cliente C on P.id_cliente = C.id 
+                and P.id = ?
+                """, (rs, rowNum) -> UtilDAO.newCliente(rs) //Puedo aplicar esto a mi pensamiento anterior?
+                , id);
 
+        return clienteList;
+    }
 
 
 }

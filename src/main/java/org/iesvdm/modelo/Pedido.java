@@ -27,7 +27,9 @@ public class Pedido {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
 
+    @Min(value=1, message = "{msg.valid.min}")
      private int id_cliente;
-     private int id_comercial;
+    @Min(value=1, message = "{msg.valid.min}")
+    private int id_comercial;
 
 }

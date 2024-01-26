@@ -3,6 +3,7 @@ package org.iesvdm.controlador;
 
 import java.util.List;
 
+import org.iesvdm.dto.PedidoFormDTO;
 import org.iesvdm.modelo.Comercial;
 import org.iesvdm.modelo.Pedido;
 import org.iesvdm.service.ClienteService;
@@ -51,9 +52,13 @@ public class ComercialController {
 
         //Añadimos el clienteService para sacar el nombre de los clientes
         model.addAttribute("clienteService", clienteService);
-/*
-       Aquí hay algo que falla
-        */
+
+        //Hay que añadir el DTO y mostrar la media y el total
+        PedidoFormDTO pedidoFormDTO = comercialService.pedidoCompletoComercial(id);
+        model.addAttribute("pedidoDTO", pedidoFormDTO);
+
+
+
 
         return "detalle-comercial";
 
@@ -105,6 +110,8 @@ public class ComercialController {
 
         return new RedirectView("/comerciales");
     }
+
+
 
 
 

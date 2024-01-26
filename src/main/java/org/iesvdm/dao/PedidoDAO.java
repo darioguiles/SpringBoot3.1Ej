@@ -19,9 +19,11 @@ public interface PedidoDAO {
 
     public void delete(long id);
 
-    public List<Pedido> getAllClientesByID(int id);
+    public List<Cliente> getAllClientesByIdPedido(int id);
 
-    public List<Pedido> getAllComercialesByID(int id);
+    public List<Pedido> getAllPClientesByID(int id);
 
+    public List<Pedido> getAllPComercialesByID(int id);
 
+    public void updateSinComercial(Pedido p);
 }

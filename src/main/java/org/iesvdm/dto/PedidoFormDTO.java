@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -32,4 +33,11 @@ public class PedidoFormDTO {
     private int idCliente;
     @Min(value=1, message = "{msg.valid.min}")
     private int idComercial;
+
+    @DecimalMin(value="0.0", message = "{msg.valid.min}")
+    private BigDecimal totalPedido;
+
+    @DecimalMin(value="0.0", message = "{msg.valid.min}")
+    private BigDecimal media;
+
 }

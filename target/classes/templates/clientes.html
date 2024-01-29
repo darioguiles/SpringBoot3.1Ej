@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title th:text="#{et.clientes}">Clientes</title>
+	<th:block th:include="fragments/general.html :: headfiles"/>
+	<title th:text="#{et.clientes}">Clientes</title>
 <style>
 .clearfix::after {
 	content: "";

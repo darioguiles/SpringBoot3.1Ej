@@ -31,5 +31,6 @@ public class Pedido {
      private int id_cliente;
     @Min(value=1, message = "{msg.valid.min}")
     private int id_comercial;
+    //Seguimos con implementación solo ID
 
 }

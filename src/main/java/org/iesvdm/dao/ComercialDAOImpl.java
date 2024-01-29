@@ -117,7 +117,7 @@ public class ComercialDAOImpl implements ComercialDAO {
 	}
 
 	@Override
-	public void update(Comercial cliente) {
+	public void update(Comercial comercial) {
 
 		int rows = jdbcTemplate.update("""
 										UPDATE comercial SET 
@@ -126,11 +126,11 @@ public class ComercialDAOImpl implements ComercialDAO {
 														apellido2 = ?,
 														comisión = ?  
 												WHERE id = ?
-										""", cliente.getNombre()
-				, cliente.getApellido1()
-				, cliente.getApellido2()
-				, cliente.getComision()
-				, cliente.getId());
+										""", comercial.getNombre()
+				, comercial.getApellido1()
+				, comercial.getApellido2()
+				, comercial.getComision()
+				, comercial.getId());
 
 		log.info("Update de Comercial con {} registros actualizados.", rows);
 

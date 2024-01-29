@@ -9,7 +9,12 @@
 			display: block;
 			clear: both;
 		}
-
+		.valorMax{
+			background: green;
+		}
+		.valorMin{
+			background: yellow;
+		}
 	</style>
 </head>
 <body>
@@ -75,9 +80,23 @@
 			<input th:value="${comercial.comision}" value="Comision" readonly="readonly"/>
 		</div>
 
+
+
 		<div style="float: left; width: 50%">
-			<h2 th:text="#{listaP}">Lista Pedidos</h2>
+			<h4 th:text="#{msg.leyenda.comercial}">Leyenda</h4>
+			<div class="clearfix">
+
+				<div th:text="#{msg.colorMax}"> </div>
+				<div style="background: green; width: 20px; height: 20px"></div>
+				<div th:text="#{msg.colorMin}"></div>
+				<div style="background: yellow; width: 20px; height: 20px"></div>
+
+				<div style="float: left; width: 50%">
+					<h2 th:text="#{listaP}">Lista Pedidos</h2>
+				</div>
+			</div>
 		</div>
+
 	</div>
 
 	<div class="clearfix">
@@ -100,8 +119,8 @@
 
 
 
-	<!--Lista Antigua hecha con el PedidoDAO antiguo     -->
-			<div  th:each="pedido : ${listaPedidos}" style="margin-top: 6px;" class="clearfix">
+
+			<div th:id="${pedido.id}" th:each="pedido : ${listaPedidos}" style="margin-top: 6px;" class="clearfix">
 
 				<div style="float: left;width: 14%" th:text="${pedido.id}">ID</div>
 				<div style="float: left;width: 14%" th:text="${pedido.total}">Total</div>
@@ -151,8 +170,15 @@
 
 		</div>
 
-
+		<div class="clearfix">
+			<h1>Listado final</h1>
+		</div>
 </div>
 
+<script th:inline="javascript">
+	//DINAMISMO CON JQUERY..
+	//CUANDO SE CARGA EL DOM JQUERY EJECUTA SOBRE SELECTOR DE CAPA MODAL AL MODAL
+	
+</script>
 </body>
 </html>

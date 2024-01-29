@@ -1,7 +1,9 @@
 package org.iesvdm.controlador;
 
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import org.iesvdm.dto.PedidoFormDTO;
 import org.iesvdm.modelo.Comercial;
@@ -21,8 +23,8 @@ public class ComercialController {
 
     private ClienteService clienteService;
 
+    //Esto también??
 
-    @Autowired
     public ComercialController(ComercialService comercialService, ClienteService clienteService) {
         this.comercialService = comercialService;
         this.clienteService = clienteService;
@@ -49,6 +51,23 @@ public class ComercialController {
 
        List<Pedido> listaPedidos = comercialService.listAllPedidos(id);
         model.addAttribute("listaPedidos", listaPedidos);
+
+        Optional<Double> maximo = listaPedidos.stream()
+                        .map(Pedido::getTotal)
+                            .max(Double::compare);
+
+        double valorMaximo = maximo.orElse(0.0);
+
+        Optional<Double> minimo = listaPedidos.stream()
+                .map(Pedido::getTotal)
+                .min(Double::compare);
+
+        double valorMinimo = minimo.orElse(0.0);
+
+
+
+        model.addAttribute("valorMaximo", valorMaximo);
+        model.addAttribute("valorMinimo", valorMinimo);
 
         //Añadimos el clienteService para sacar el nombre de los clientes
         model.addAttribute("clienteService", clienteService);

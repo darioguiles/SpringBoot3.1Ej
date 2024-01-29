@@ -41,7 +41,7 @@
 				Nombre
 			</div>
 			<div style="float: none;width: auto;overflow: hidden;">
-				<input th:field="*{nombre}" />
+				<input th:field="*{nombre}" th:classappend="${#fields.hasErrors()}"/>
 			</div>
 			<div th:text="#{cl.campo2}" style="float: left;width: 50%">
 				Apellido1

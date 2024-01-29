@@ -2,10 +2,13 @@ package org.iesvdm.controlador;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import org.iesvdm.modelo.Cliente;
+import org.iesvdm.modelo.Comercial;
 import org.iesvdm.service.ClienteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -61,11 +64,19 @@ public class ClienteController {
 	}
 
 	@PostMapping("/clientes/crear")
-	public RedirectView submitCrear(@ModelAttribute Cliente cliente) {
+	public String submitCrear(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult bindingResult, Model model) {
+
+
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("cliente", cliente);
+
+			return "crear-cliente";
+
+		}
 
 		clienteService.newCliente(cliente);
 
-		return new RedirectView("/clientes") ;
+		return "redirect:/cliente";
 	}
 
 	@GetMapping("/clientes/editar/{id}")

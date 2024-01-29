@@ -29,13 +29,13 @@ public class PedidoDAOImpl implements PedidoDAO {
         //Actualizarse porque estoy usando algo deprecated -> ver diferentes aplicaciones o soluciones
         List<Pedido> listPedido = jdbcTemplate.query(
                 "SELECT * FROM pedido WHERE id_comercial = ?",
-                new Object[]{idComercial},
+                new Object[]{idComercial}, //Comercial
                 (rs, rowNum) -> new Pedido(
                         rs.getInt("id"),
                         rs.getDouble("total"),
                         rs.getDate("fecha"),
                         rs.getInt("id_cliente"),
-                        rs.getInt("id_comercial") ) );
+                        rs.getInt("id_comercial")));
 
         log.info("Devueltos {} registros para id_comercial = {}.", listPedido.size(), idComercial);
 

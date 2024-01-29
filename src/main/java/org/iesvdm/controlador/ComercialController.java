@@ -5,7 +5,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.validation.Valid;
 import org.iesvdm.dto.PedidoFormDTO;
+import org.iesvdm.modelo.Cliente;
 import org.iesvdm.modelo.Comercial;
 import org.iesvdm.modelo.Pedido;
 import org.iesvdm.service.ClienteService;
@@ -13,6 +15,7 @@ import org.iesvdm.service.ComercialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -97,11 +100,19 @@ public class ComercialController {
     }
 
     @PostMapping("/comerciales/crear")
-    public RedirectView submitCrear(@ModelAttribute Comercial comercial) {
+    public String submitCrear(@Valid @ModelAttribute("comercial") Comercial comercial, BindingResult bindingResult, Model model) {
+
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("comercial", comercial);
+
+            return "crear-pedido";
+
+        }
 
         comercialService.newComercial(comercial);
 
-        return new RedirectView("/comerciales") ;
+        return "redirect:/comerciales" ;
     }
 
     @GetMapping("/comerciales/editar/{id}")

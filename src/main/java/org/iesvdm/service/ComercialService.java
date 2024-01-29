@@ -2,19 +2,23 @@ package org.iesvdm.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.iesvdm.dao.ComercialDAO;
 import org.iesvdm.dao.PedidoDAO;
 import org.iesvdm.dao.PedidoDAOImpl;
+import org.iesvdm.dto.ComercialDTO;
 import org.iesvdm.dto.PedidoFormDTO;
+import org.iesvdm.mapper.ComercialMapper;
 import org.iesvdm.mapper.PedidoMapper;
+import org.iesvdm.modelo.Cliente;
 import org.iesvdm.modelo.Comercial;
 import org.iesvdm.modelo.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class ComercialService {
@@ -32,6 +36,8 @@ public class ComercialService {
     @Autowired
     private PedidoDAOImpl pedidoDAO;
 
+    @Autowired
+    private ComercialMapper comercialMapper;
 
 
     public List<Comercial> listAll() {
@@ -68,35 +74,64 @@ public class ComercialService {
         return pedidoDAO.getAllPComercialesByID(id);
     }
 
-    public PedidoFormDTO pedidoCompletoComercial(int id){
+    public PedidoFormDTO pedidoCompletoComercial(int id) {
 
         PedidoFormDTO pedidoFormDTO = new PedidoFormDTO();
 
-       List<Pedido> listaPedido = listAllPedidos(id);
+        List<Pedido> listaPedido = listAllPedidos(id);
 
-       BigDecimal totalPedido = BigDecimal.ZERO;
+        BigDecimal totalPedido = BigDecimal.ZERO;
 
         for (Pedido p : listaPedido) {
             totalPedido = totalPedido.add(new BigDecimal(p.getTotal()));
         }
 
 
-
-        BigDecimal media = totalPedido.divide(new BigDecimal(listaPedido.size()),0);
+        BigDecimal media = totalPedido.divide(new BigDecimal(listaPedido.size()), 0);
 
 
         pedidoFormDTO.setMedia(media);
         pedidoFormDTO.setTotalPedido(totalPedido);
         return pedidoFormDTO;
     }
-    /* TODO Vamos a plantear la 3.6... Necesitamos hacer lo siguiente:
-    *
-    * 2. Posteriormente, resalta con verde las líneas de pedido máximo y con amarillo las líneas de pedido mínimo. Pon leyendas indicando qué significa cada color.
-    * (Creamos cajitas con los colores y la leyenda )
-    *
-    * 3. Muestra un listado adicional con los clientes ordenados por cuantía de pedido de mayor a menor. El listado iría a continuación del listado de pedidos
-    * (Stream -> sacamos todos los pedidos a partir de un cliente (1-*) (Se podria recorrer al reves? todos los pedidos de 1 cliente vs el cliente de varios pedidos¿?)
-    * Estamos ante una estructura de linea continua puesto que un Pedido no puede existir sin un Comercial y un Cliente)
-    * */
+
+    public List<ComercialDTO> listAllByIDCliente(Integer id) {
+        //Segun la DB Comercial -> Pedido cl_ID co_ID <- Cliente
+        //Aqui tenemos la ID del cliente así que sacamos una lista de Pedido, filtramos por ID cliente y sacamos sus comerciales
+
+      List<Pedido> listaPedidosCliente = pedidoDAO.getAllPClientesByID(id);
+
+        // Creamos un conjunto para almacenar los comerciales sin duplicados porque solo nos interesa 1 unico comercial
+                Set<ComercialDTO> comercialesSet = new HashSet<>();
+
+                // Iteramos sobre la lista de pedidos del cliente
+                for (Pedido pedido : listaPedidosCliente) {
+                    // Obtenemos las IDs de cliente y comercial desde el pedido
+                    int idComercial = pedido.getId_comercial();
+
+                    //Con la funcion find Sacamos al comercial del pedido en concreto
+                    Optional<Comercial> comercialOpt = comercialDAO.find(idComercial);
+
+                    // Agregamos el comercial al conjunto
+                    if (comercialOpt.isPresent()) {
+
+                        //Sacamos el comercial
+                        Comercial comercial = comercialOpt.get();
+                        //Creamos un DTO con la info del Comercial inicial
+                        ComercialDTO comercialD = comercialMapper.comercialAComercialDTO(comercial);
+                        //Al DTO le ponemos la cantidad de Pedidos que tiene ese comercial
+                        comercialD.setCantidadPedidos(pedidoDAO.getAllPComercialesByID(idComercial).size());
+                        //Metemos el comercialDTO al set :D
+                        comercialesSet.add(comercialD);
+
+                    }
+                }
+
+                // Convertimos el conjunto a lista y lo mandamos al Controller para usarlo en detalle-cliente
+                List<ComercialDTO> lista = new ArrayList<>(comercialesSet);
+
+
+        return lista;
+    }
 
 }

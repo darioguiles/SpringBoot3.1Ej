@@ -59,6 +59,22 @@ public class ComercialDAOImpl implements ComercialDAO {
 
 	}
 
+	public void create_CON_RECARGA_SIMPLEJDBC(Comercial comercial){
+		SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
+		simpleJdbcInsert
+				.withTableName("comercial")
+				.usingGeneratedKeyColumns();
+		SqlParameterSource params = new MapSqlParameterSource()
+				.addValue("nombre",comercial.getNombre())
+				.addValue("apellido1",comercial.getApellido1())
+				.addValue("apellido2",comercial.getApellido2())
+				.addValue("comisión",comercial.getComision());
+		Number number = simpleJdbcInsert.execute(params);
+
+		comercial.setId(number.intValue());
+
+	}
+
 	@Override
 	public List<Comercial> getAll() {
 
@@ -131,17 +147,6 @@ public class ComercialDAOImpl implements ComercialDAO {
 
 	}
 
-	public void create_CON_RECARGA_SIMPLEJDBC(Comercial comercial) {
-			SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
-			simpleJdbcInsert
-					.withTableName("comercial")
-					.usingGeneratedKeyColumns();
-			SqlParameterSource params = new MapSqlParameterSource()
-					.addValue("nombre",comercial.getNombre())
-					.addValue("apellido1",comercial.getApellido1())
-					.addValue("apellido2",comercial.getApellido2())
-					.addValue("comisión",comercial.getComision());
-			Number number = simpleJdbcInsert.execute(params);
-			comercial.setId(number.intValue());
-	}
+
+
 }

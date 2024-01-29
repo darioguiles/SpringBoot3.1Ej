@@ -2,8 +2,11 @@ package org.iesvdm.controlador;
 
 import java.util.List;
 
+import org.iesvdm.dto.ComercialDTO;
 import org.iesvdm.modelo.Cliente;
+import org.iesvdm.modelo.Comercial;
 import org.iesvdm.service.ClienteService;
+import org.iesvdm.service.ComercialService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +20,15 @@ import org.springframework.web.servlet.view.RedirectView;
 public class ClienteController {
 	
 	private ClienteService clienteService;
+
+	private ComercialService comercialService;
 	
 	//Se utiliza inyección automática por constructor del framework Spring.
 	//Por tanto, se puede omitir la anotación Autowired
 	//@Autowired
-	public ClienteController(ClienteService clienteService) {
+	public ClienteController(ClienteService clienteService, ComercialService comercialService) {
 		this.clienteService = clienteService;
+		this.comercialService= comercialService;
 	}
 	
 	//@RequestMapping(value = "/clientes", method = RequestMethod.GET)
@@ -42,6 +48,13 @@ public class ClienteController {
 
 		Cliente cliente = clienteService.one(id);
 		model.addAttribute("cliente", cliente);
+
+		//Vamos a meter una lista de Comerciales
+		List<ComercialDTO> listaComerciales = comercialService.listAllByIDCliente(id);
+		model.addAttribute("listaCom",listaComerciales);
+		//Un contador de pedidos x comercial? -> implementar
+
+
 
 		return "detalle-cliente";
 

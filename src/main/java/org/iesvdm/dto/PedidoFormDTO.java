@@ -27,7 +27,7 @@ public class PedidoFormDTO {
     private Double total;
 
     @NotNull(message = "{msg.valid.not.null}")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd") //IMPORTANTE***
     private Date fecha;
     @Min(value=1, message = "{msg.valid.min}")
     private int idCliente;

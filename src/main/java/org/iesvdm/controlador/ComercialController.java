@@ -106,13 +106,18 @@ public class ComercialController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("comercial", comercial);
 
-            return "crear-pedido";
+            return "crear-comercial";
 
         }
 
         comercialService.newComercial(comercial);
 
         return "redirect:/comerciales" ;
+
+        /*
+        *
+        *
+        * */
     }
 
     @GetMapping("/comerciales/editar/{id}")
